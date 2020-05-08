@@ -21,6 +21,7 @@ def index(request):
 	}
 	return render(request, 'posts/index.html', contents)
 
+@login_required(login_url='login')
 def upload(request):
 	if request.method == "POST":
 		current_user = request.user
