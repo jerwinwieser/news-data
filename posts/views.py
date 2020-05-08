@@ -44,3 +44,11 @@ def upload(request):
 	return render(request, 'posts/upload.html')
 
 
+def training(request):
+	contents = {
+		'title': 'hi',
+		'body': 'i am the body',
+	}
+	question = "What's the question???"
+	# return render(request, 'posts/training.html', {'question': question})
+	return render(request, 'posts/training.html', contents)
