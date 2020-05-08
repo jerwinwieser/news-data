@@ -7,48 +7,55 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.files.storage import FileSystemStorage
 
 # file upload
-import csv, io
+import csv
 from django.contrib import messages
 
 # get datetime
 from datetime import datetime
 
+# to read filenames
+import os
+
 
 @login_required(login_url='login')
 def index(request):
-	contents = {
-		'title': 'hi'
-	}
-	return render(request, 'posts/index.html', contents)
+	return render(request, 'posts/index.html', {'title': 'hi'})
 
 @login_required(login_url='login')
 def upload(request):
 	if request.method == "POST":
-		current_user = request.user
-		uploaded_file = request.FILES['upload_data']
+		# get user and uploaded file
+		user = request.user.get_username()
+		file = request.FILES['upload_data']
 
+		# create some var datetime
 		now = datetime.now()
-		current_date = now.strftime("%Y-%m-%d")
-		current_time = now.strftime("%H:%M:%S")
-		current_datetime = current_date + '_' + current_time
+		date = now.strftime("%Y-%m-%d")
+		time = now.strftime("%H:%M:%S")
+		dt = date + '_' + time
 
 		# create a file name to name the datafile
-		write_file_name = str(current_user) + '_' + uploaded_file.name
+		fname = user + '_' + file.name
 		
-		if not uploaded_file.name.endswith('.csv'):
-			messages.error(request, 'Upload your file as .csv')
+		# check whether the uploaded file are as expected
+		# if as expected, save the file in the media folder
+		# add some user feedback with error- or success-messages
+		if not fname.endswith('.csv'):
+			messages.error(request, 'No file Uploaded. Upload .csv instead')
 		else: 
 			fs = FileSystemStorage()
-			fs.save(write_file_name, uploaded_file)
-			messages.error(request, 'Your file has been uploaded')
+			fs.save(fname, file)
+			messages.success(request, 'Your file has been uploaded')
 	return render(request, 'posts/upload.html')
 
-
+@login_required(login_url='login')
 def training(request):
-	contents = {
-		'title': 'hi',
-		'body': 'i am the body',
-	}
-	question = "What's the question???"
-	# return render(request, 'posts/training.html', {'question': question})
-	return render(request, 'posts/training.html', contents)
+	# get the current user
+	user = request.user.get_username()
+
+	# list the file names in the media dir
+	# then get the files from the current user
+	file_names = os.listdir('media')
+	user_files = [file for file in file_names if str(user) in file]
+
+	return render(request, 'posts/training.html', {'contents': user_files})

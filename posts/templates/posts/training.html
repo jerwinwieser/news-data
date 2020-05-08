@@ -6,8 +6,8 @@
 
 {% block content %}
 
-{{ title }}
-\\
-{{ body }}
+{% for content in contents %}
+<h2>{{ content }}</h2>
+{% endfor %}
 
 {% endblock %}
