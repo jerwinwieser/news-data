@@ -40,17 +40,19 @@ def api_data(request, *args, **kwargs):
 class chart_data(APIView):
 	authentication_classes = []
 	permission_classes = []
-
 	def get(self, request, format=None):
+		qs_count = User.objects.all().count()
+
+		labels = ["Users", "Blue", "Yellow"]
+		default_items = [qs_count, 7, 9]
 		data = {
-				'sales': 100,
-				'customers': 10,
-				'users': User.objects.all().count(),
+				'labels': labels,
+				'default': default_items,
 		}
 		return Response(data)
 
 def chart(request, *args, **kwargs):
-	return render(request, 'posts/charts.html', {})
+	return render(request, 'posts/charts.html')
 
 
 @login_required(login_url='login')

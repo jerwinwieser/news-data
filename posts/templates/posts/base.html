@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     
-    {% block title %}{% endblock %}
+    {% block title %}{% endblock title %}
     
     {% include 'posts/bootstrap.html' %}
     
@@ -30,7 +30,7 @@
 
     <script>
     $(document).ready(function(){
-        {% block jquery %}{% endblock %}
+        {% block jquery %}{% endblock jquery %}
     })
     </script>
 
