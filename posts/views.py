@@ -24,6 +24,11 @@ from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+# exp
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
 
 def graph(request, *args, **kwargs):
 	return render(request, 'posts/charts.html', {})
@@ -43,6 +48,7 @@ class chart_data(APIView):
 		data = {
 				'sales': 100,
 				'customers': 10,
+				'users': User.objects.all().count(),
 		}
 		return Response(data)
 
