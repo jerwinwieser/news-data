@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'train.apps.TrainConfig',
     'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
     'crispy_forms',
