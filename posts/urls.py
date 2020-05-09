@@ -8,5 +8,5 @@ urlpatterns = [
     path('upload/', views.upload, name='posts-upload'),
     path('training/', views.training, name='posts-training'),
     path('api/data/', views.get_data, name='api-data'),
- 	path('graph/', views.graph, name='posts-graph'),   
+ 	path('graph/', views.chart_data.as_view(), name='posts-graph'),   
 ]
