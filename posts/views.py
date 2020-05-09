@@ -30,10 +30,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-def graph(request, *args, **kwargs):
-	return render(request, 'posts/charts.html', {})
-
-def get_data(request, *args, **kwargs):
+def api_data(request, *args, **kwargs):
 	data = {
 		'sales': 100,
 		'customers': 10,
@@ -52,6 +49,8 @@ class chart_data(APIView):
 		}
 		return Response(data)
 
+def chart(request, *args, **kwargs):
+	return render(request, 'posts/charts.html', {})
 
 
 @login_required(login_url='login')

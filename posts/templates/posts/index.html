@@ -2,13 +2,11 @@
 
 {% block title %}
 <title>posts-index</title>
-{% endblock %}
+{% endblock title %}
 
 <script>
+	
 	{% block jquery %}
-
-	var title_django = '{{ title }}'
-	console.log(title_django)
 
 	var ctx = document.getElementById('myChart').getContext('2d');
 	var myChart = new Chart(ctx, {
@@ -48,7 +46,8 @@
 	    }
 	});
 
-	{% endblock %}
+	{% endblock jquery %}
+
 </script>
 
 {% block content %}
@@ -56,5 +55,5 @@
 <p>At vero eos et accusamus</p>
 <canvas id="myChart" width="400" height="400"></canvas>
 
-{% endblock %}
+{% endblock content %}
 

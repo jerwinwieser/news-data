@@ -2,21 +2,24 @@
 
 {% block title %}
 <title>posts-charts</title>
-{% endblock %}
+{% endblock title %}
 
 <script>
 {% block jquery %}
 var endpoint = '/api/chart/data/'
+var default_data = [12, 19, 3, 5, 2, 3]
+
 $.ajax({
 	method: "GET",
 	url: endpoint,
 	success: function(data){
 		console.log(data)
+        console.log(data.customers * 100)
 	},
-	error: function(error_data){
-		console.log("error")
-		console.log(error_data)
-	}
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
 })
 
 var ctx = document.getElementById('myChart').getContext('2d');
@@ -26,7 +29,7 @@ var myChart = new Chart(ctx, {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: default_data,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -57,18 +60,19 @@ var myChart = new Chart(ctx, {
     }
 });
 
-{% endblock %}
+{% endblock jquery %}
+
 </script>
+
 
 {% block content %}
 
 <div class='row'>
 	<div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
 		<p>there will be a graph here</p>
-
 		<canvas id="myChart" width="400" height="400"></canvas>
 
 	</div>
 </div>
 
-{% endblock %}
+{% endblock content %}
