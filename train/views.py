@@ -22,11 +22,33 @@ class rest_data(APIView):
 	permission_classes = []
 
 	def get(self, request, format=None):
-		qs_count = User.objects.all().count()
-		labels = ["Users", "Blue", "Yellow"]
-		default_items = [qs_count, 7, 9]
+
+		user = request.user.get_username()
+		dir_files = os.listdir('media')
+		user_files = [file for file in dir_files if str(user) in file]
+
+		df = pd.read_csv('media/' + user_files[1])
+		time = df['Time']
+		value = df['Value']
+
 		data = {
-				'labels': labels,
-				'default': default_items,
+				'x': time,
+				'y': value,
 		}
 		return Response(data)
+
+# class rest_data(APIView):
+# 	authentication_classes = []
+# 	permission_classes = []
+
+# 	def get(self, request, format=None):
+# 		qs_count = User.objects.all().count()
+# 		labels = ["Users", "Blue", "Yellow"]
+# 		default_items = [qs_count, 7, 9]
+# 		data = {
+# 				'labels': labels,
+# 				'default': default_items,
+# 		}
+# 		return Response(data)
+
+

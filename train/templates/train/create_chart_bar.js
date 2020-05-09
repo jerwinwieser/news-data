@@ -1,4 +1,4 @@
-function create_chart(){
+function create_chart_bar(){
     var ctx = document.getElementById('my_chart').getContext('2d');
     var my_chart = new Chart(ctx, {
         type: 'bar',

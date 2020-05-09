@@ -8,17 +8,17 @@
 {% block jquery %}
 
 var endpoint = '/rest/'
-var default_data = []
-var labels = []
+var x = []
+var y = []
 
 $.ajax({
 	method: "GET",
 	url: endpoint,
 
 	success: function(data){
-        labels = data.labels
-        default_data = data.default
-        create_chart()
+        x = data.x
+        y = data.y
+        create_chart_line()
 	},
     error: function(error_data){
         console.log("error")
@@ -26,17 +26,13 @@ $.ajax({
     }
 })
 
-{% include 'train/create_chart.js' %}
+{% include 'train/create_chart_line.js' %}
 
 {% endblock jquery %}
 </script>
 
 {% block content %}
-<div class='row'>
-	<div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
-		<canvas id="my_chart" width="400" height="400"></canvas>
-	</div>
-</div>
+<canvas id="my_chart" width="400" height="400"></canvas>
 {% endblock content %}
 
 
