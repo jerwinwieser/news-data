@@ -4,7 +4,39 @@
 <title>it's train-chart</title>
 {% endblock title %}
 
+<script>
+{% block jquery %}
+
+var endpoint = '/rest/'
+var default_data = []
+var labels = []
+
+$.ajax({
+	method: "GET",
+	url: endpoint,
+
+	success: function(data){
+        labels = data.labels
+        default_data = data.default
+        create_chart()
+	},
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
+})
+
+{% include 'train/create_chart.js' %}
+
+{% endblock jquery %}
+</script>
+
 {% block content %}
-<h2>i am content</h2>
-<h3>metoo</h3>
+<div class='row'>
+	<div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
+		<canvas id="my_chart" width="400" height="400"></canvas>
+	</div>
+</div>
 {% endblock content %}
+
+

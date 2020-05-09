@@ -20,9 +20,9 @@ def render_chart(request, *args, **kwargs):
 class rest_data(APIView):
 	authentication_classes = []
 	permission_classes = []
+
 	def get(self, request, format=None):
 		qs_count = User.objects.all().count()
-
 		labels = ["Users", "Blue", "Yellow"]
 		default_items = [qs_count, 7, 9]
 		data = {
@@ -30,10 +30,3 @@ class rest_data(APIView):
 				'default': default_items,
 		}
 		return Response(data)
-
-def api_data(request, *args, **kwargs):
-	data = {
-		'sales': 100,
-		'customers': 10,
-	}
-	return JsonResponse(data)
