@@ -1,40 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!--     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
     
     {% block title %}{% endblock %}
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    {% include 'posts/bootstrap.html' %}
+    
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'posts-index' %}">News Data</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    {% if request.user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                    {% else %}
-                    <a class="nav-link" href="{% url 'login' %}">Login</a>
-                    {% endif %}
-                </li>
-
-                    <a class="nav-link" href="{% url 'posts-upload' %}">Upload</a>
-                    <a class="nav-link" href="{% url 'posts-training' %}">Training</a>
-                    <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
-            </ul>
-        </div>
-    </nav>
-    
+    {% include 'posts/navigation.html' %}
 
     <main role="main" class="container">
 
@@ -50,9 +26,15 @@
 
     </main>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    {% include 'posts/js.html' %}
+
+    <!-- add javascript block for chart.js -->
+    <script>
+    // $(document).ready(function(){
+    $(function($){
+        {% block jquery %}{% endblock %}
+    })
+    </script>
 
 </body>
 </html>

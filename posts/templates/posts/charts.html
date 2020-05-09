@@ -1,0 +1,34 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}
+<title>posts-charts</title>
+{% endblock %}
+
+<script>
+{% block jquery %}
+var endpoint = '/api/data/' // {% url 'api-data' %}
+
+$.ajax({
+	method: "GET",
+	url: endpoint,
+	success: function(data){
+		console.log(data)
+	},
+	error: function(error_data){
+		console.log("error")
+		console.log(error_data)
+	}
+})
+
+{% endblock %}
+</script>
+
+{% block content %}
+
+<div class='row'>
+	<div class='col-sm-12' url-endpoint='{% url "api-data" %}'>
+		<p>there will be a graph here</p>
+	</div>
+</div>
+
+{% endblock %}
